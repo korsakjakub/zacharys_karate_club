@@ -34,8 +34,8 @@ jobs:
         git add -A
     - name: Commit files
       run: |
-        git config --local user.email "jakub@korsak.xyz"
-        git config --local user.name "github-actions[bot]"
+        git config --local user.email "jakub.korsak@protonmail.com"
+        git config --local user.name "Jakub Korsak"
         git commit -a -m "[bot] update animation.gif"
         git push
     - name: Push changes
