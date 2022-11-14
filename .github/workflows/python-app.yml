@@ -37,7 +37,4 @@ jobs:
         git config --local user.email "jakub@korsak.xyz"
         git config --local user.name "github-actions[bot]"
         git commit -a -m "Add changes"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: ${{ github.head_ref }}
+        git push
