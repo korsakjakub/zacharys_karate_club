@@ -30,7 +30,8 @@ jobs:
     - name: Run simulation
       run: |
         python karate_club.py
-        git add simulation.gif
+        ls -l
+        git add -A
     - name: Commit files
       run: |
         git config --local user.email "jakub@korsak.xyz"
