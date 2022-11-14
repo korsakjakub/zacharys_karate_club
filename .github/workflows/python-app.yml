@@ -32,9 +32,10 @@ jobs:
         python karate_club.py
         ls -l
         git add -A
-    - name: Commit files
-      run: |
+    - uses: actions/checkout@v3
+      name: Commit files
+    - run: |
         git config --local user.email "jakub@korsak.xyz"
         git config --local user.name "github-actions[bot]"
-        git commit -a -m "Add changes"
+        git commit -a -m "[bot] update animation.gif"
         git push
