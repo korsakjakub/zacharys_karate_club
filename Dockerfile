@@ -5,7 +5,7 @@ RUN apt update &&  \
 
 WORKDIR /app
 
-# COPY requirements.txt ./
-COPY . .
+COPY requirements.txt ./
+# COPY . .
 RUN pip install -r requirements.txt
 ENTRYPOINT python karate_club.py

@@ -2,6 +2,7 @@ import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
+from tqdm import tqdm
 import os
 
 
@@ -42,7 +43,7 @@ def simulation(graph, config):
     diffusion_constant = config["diffusion_constant"]
     weights_constant = config["weights_constant"]
     dt = config["dt"]
-    for time in range(1000):
+    for time in tqdm(range(3000)):
         new_states = state_evolution(G, diffusion_constant, dt)
         new_weights = weight_evolution(G, weights_constant, dt)
         nx.set_node_attributes(G, new_states, "state")
@@ -82,11 +83,12 @@ def _get_real_initial_graph():
     initial_states[33] = 0.0
     nx.set_node_attributes(G, initial_states, "state")
     nx.set_edge_attributes(G, initial_weights_dict, "weight")
+    return G
 
 
 if __name__ == "__main__":
-    initial_graph = _get_unbiased_initial_graph()
-    # initial_graph = _get_real_initial_graph()
+    # initial_graph = _get_unbiased_initial_graph()
+    initial_graph = _get_real_initial_graph()
 
     simulation(graph=initial_graph,
                config={
