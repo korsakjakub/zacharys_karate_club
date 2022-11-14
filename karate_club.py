@@ -35,6 +35,9 @@ def weight_evolution(graph, weight_constant, dt):
 
 
 def simulation(graph, config):
+    dir_path = config["dir_path"]
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
     G = graph
     diffusion_constant = config["diffusion_constant"]
     weights_constant = config["weights_constant"]
@@ -49,7 +52,7 @@ def simulation(graph, config):
             )], edge_cmap=cm.binary, edge_vmin=0, edge_vmax=1, edge_color=[G[i][j]['weight'] for i, j in G.edges])
             plt.savefig(f"png/{time}.png")
             plt.close()
-    os.system(f'mkdir -p png; cd png; files=$(ls *.png | sort -n -k1); convert -delay 20 $files animation.gif; rm *.png')
+    os.system(f'cd {dir_path}; files=$(ls *.png | sort -n -k1); convert -delay 20 $files animation.gif; rm *.png')
 
 
 def _get_unbiased_initial_graph():
@@ -89,5 +92,6 @@ if __name__ == "__main__":
                config={
                    "diffusion_constant": 5.0,
                    "weights_constant": 10.0,
-                   "dt": 0.01
+                   "dt": 0.01,
+                   "dir_path": "png"
                })
