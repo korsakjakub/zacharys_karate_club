@@ -11,11 +11,13 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -28,3 +30,14 @@ jobs:
     - name: Run simulation
       run: |
         python karate_club.py
+        git add simulation.gif
+    - name: Commit files
+      run: |
+        git config --local user.email "jakub@korsak.xyz"
+        git config --local user.name "github-actions[bot]"
+        git commit -a -m "Add changes"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
