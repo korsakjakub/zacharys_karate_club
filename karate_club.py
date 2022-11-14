@@ -43,17 +43,19 @@ def simulation(graph, config):
     diffusion_constant = config["diffusion_constant"]
     weights_constant = config["weights_constant"]
     dt = config["dt"]
-    for time in tqdm(range(3000)):
+    for time in tqdm(range(2000)):
         new_states = state_evolution(G, diffusion_constant, dt)
         new_weights = weight_evolution(G, weights_constant, dt)
         nx.set_node_attributes(G, new_states, "state")
         nx.set_edge_attributes(G, new_weights, "weight")
         if time % 10 == 0:
-            nx.draw_spring(G, cmap=cm.cool, vmin=0, vmax=1, with_labels=True, node_color=[G.nodes[i]['state'] for i in G.nodes(
+            # nx.draw_spring(G, cmap=cm.cool, vmin=0, vmax=1, with_labels=True, node_color=[G.nodes[i]['state'] for i in G.nodes(
+            # )], edge_cmap=cm.binary, edge_vmin=0, edge_vmax=1, edge_color=[G[i][j]['weight'] for i, j in G.edges])
+            nx.draw(G, nx.spring_layout(G, fixed=[0, 33], pos={0: (0.0, 0.0), 33: (10.0, 0.0)}), cmap=cm.cool, vmin=0, vmax=1, with_labels=True, node_color=[G.nodes[i]['state'] for i in G.nodes(
             )], edge_cmap=cm.binary, edge_vmin=0, edge_vmax=1, edge_color=[G[i][j]['weight'] for i, j in G.edges])
             plt.savefig(f"png/{time}.png")
             plt.close()
-    os.system(f'cd {dir_path}; files=$(ls *.png | sort -n -k1); convert -delay 20 $files ../animation.gif; rm *.png')
+    os.system(f'cd {dir_path}; files=$(ls *.png | sort -n -k1); convert -delay 20 $files ../animation3.gif; rm *.png')
 
 
 def _get_unbiased_initial_graph():
