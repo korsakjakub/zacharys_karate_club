@@ -52,7 +52,7 @@ def simulation(graph, config):
             )], edge_cmap=cm.binary, edge_vmin=0, edge_vmax=1, edge_color=[G[i][j]['weight'] for i, j in G.edges])
             plt.savefig(f"png/{time}.png")
             plt.close()
-    os.system(f'cd {dir_path}; files=$(ls *.png | sort -n -k1); convert -delay 20 $files animation.gif; rm *.png')
+    os.system(f'cd {dir_path}; files=$(ls *.png | sort -n -k1); convert -delay 20 $files ../animation.gif; rm *.png')
 
 
 def _get_unbiased_initial_graph():
